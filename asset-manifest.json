@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/riskystrats/static/css/main.f5edc999.chunk.css",
-    "main.js": "/riskystrats/static/js/main.0d5ae76e.chunk.js",
-    "main.js.map": "/riskystrats/static/js/main.0d5ae76e.chunk.js.map",
+    "main.js": "/riskystrats/static/js/main.1e0c15e2.chunk.js",
+    "main.js.map": "/riskystrats/static/js/main.1e0c15e2.chunk.js.map",
     "runtime-main.js": "/riskystrats/static/js/runtime-main.0089774d.js",
     "runtime-main.js.map": "/riskystrats/static/js/runtime-main.0089774d.js.map",
     "static/js/2.89cddd11.chunk.js": "/riskystrats/static/js/2.89cddd11.chunk.js",
     "static/js/2.89cddd11.chunk.js.map": "/riskystrats/static/js/2.89cddd11.chunk.js.map",
     "index.html": "/riskystrats/index.html",
-    "precache-manifest.b6e9ca62ac54093ab364046fad2dcb11.js": "/riskystrats/precache-manifest.b6e9ca62ac54093ab364046fad2dcb11.js",
+    "precache-manifest.d099705bee9f9134b2161f13d38ba5ed.js": "/riskystrats/precache-manifest.d099705bee9f9134b2161f13d38ba5ed.js",
     "service-worker.js": "/riskystrats/service-worker.js",
     "static/css/main.f5edc999.chunk.css.map": "/riskystrats/static/css/main.f5edc999.chunk.css.map",
     "static/js/2.89cddd11.chunk.js.LICENSE.txt": "/riskystrats/static/js/2.89cddd11.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.0089774d.js",
     "static/js/2.89cddd11.chunk.js",
     "static/css/main.f5edc999.chunk.css",
-    "static/js/main.0d5ae76e.chunk.js"
+    "static/js/main.1e0c15e2.chunk.js"
   ]
 }
