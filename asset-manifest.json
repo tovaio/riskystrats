@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/riskystrats/static/css/main.f5edc999.chunk.css",
+    "main.js": "/riskystrats/static/js/main.884d64a3.chunk.js",
+    "main.js.map": "/riskystrats/static/js/main.884d64a3.chunk.js.map",
+    "runtime-main.js": "/riskystrats/static/js/runtime-main.0089774d.js",
+    "runtime-main.js.map": "/riskystrats/static/js/runtime-main.0089774d.js.map",
+    "static/js/2.89cddd11.chunk.js": "/riskystrats/static/js/2.89cddd11.chunk.js",
+    "static/js/2.89cddd11.chunk.js.map": "/riskystrats/static/js/2.89cddd11.chunk.js.map",
+    "index.html": "/riskystrats/index.html",
+    "precache-manifest.a539d78cc1afc4e91d73e579127f46f8.js": "/riskystrats/precache-manifest.a539d78cc1afc4e91d73e579127f46f8.js",
+    "service-worker.js": "/riskystrats/service-worker.js",
+    "static/css/main.f5edc999.chunk.css.map": "/riskystrats/static/css/main.f5edc999.chunk.css.map",
+    "static/js/2.89cddd11.chunk.js.LICENSE.txt": "/riskystrats/static/js/2.89cddd11.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0089774d.js",
+    "static/js/2.89cddd11.chunk.js",
+    "static/css/main.f5edc999.chunk.css",
+    "static/js/main.884d64a3.chunk.js"
+  ]
+}
