@@ -339,7 +339,8 @@ const Map: React.FC = () => {
 
     useEffect(() => {
         console.log("connecting!");
-        const socket = io.connect('https://riskystrats.herokuapp.com:3001');
+        const url = (process.env.NODE_ENV === 'production') ? 'https://riskystrats.herokuapp.com' : 'https://localhost:3001';
+        const socket = io.connect(url);
         socketRef.current = socket;
 
         socket.on('playerID', (newPlayerID: PlayerID) => {
