@@ -339,7 +339,7 @@ const Map: React.FC = () => {
 
     useEffect(() => {
         console.log("connecting!");
-        const socket = io.connect('http://192.168.50.167:3001');
+        const socket = io.connect('https://riskystrats.herokuapp.com:3001');
         socketRef.current = socket;
 
         socket.on('playerID', (newPlayerID: PlayerID) => {
