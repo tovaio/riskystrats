@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "4e8285f3048854e18dcb8b99621f9222",
+    "revision": "9927aff1a1a357e169a0e42f5125852c",
     "url": "/riskystrats/index.html"
   },
   {
-    "revision": "56820c18c75ba6df861f",
-    "url": "/riskystrats/static/css/main.0c4e79a4.chunk.css"
+    "revision": "fe1caf4a5f74431d9125",
+    "url": "/riskystrats/static/css/main.b2eb8181.chunk.css"
   },
   {
     "revision": "25b3d99277d024536729",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/riskystrats/static/js/2.47c45628.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "56820c18c75ba6df861f",
-    "url": "/riskystrats/static/js/main.e75b6da4.chunk.js"
+    "revision": "fe1caf4a5f74431d9125",
+    "url": "/riskystrats/static/js/main.794b7ceb.chunk.js"
   },
   {
     "revision": "0c1bc4b0e501eb7e8af4",
