@@ -9,7 +9,7 @@ interface LobbyProps {
 
 /*
     Lobby:
-    React component which displays the list of Rooms that are currently active
+    React component which represents the main menu of the game
 */
 const Lobby: React.FC<LobbyProps> = props => {
     const createRoom = useCallback(

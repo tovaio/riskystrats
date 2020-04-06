@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 
 import { useRoomState, RoomStateActionType } from './RoomState';
 
-import { PlayerData } from './Player';
+import { PlayerData, Team } from './Player';
 import Game, { GameData, GameDataFlat } from './Game';
 import { MapNodeData, NodeType } from './Map/MapNode';
 
@@ -88,7 +88,7 @@ const Room: React.FC<RoomProps> = props => {
     // Callback to adjust nodeSelected when mouse is clicked
     const onMouseDown = useCallback(
         () => {
-            if (state.nodeHoveredID !== undefined && props.room !== undefined && props.room.game !== undefined) {
+            if (state.nodeHoveredID !== undefined && props.room !== undefined && props.room.game !== undefined && props.player.team !== Team.Neutral) {
                 const nodeHovered = props.room.game.map.nodes[state.nodeHoveredID];
                 if (nodeHovered !== undefined && nodeHovered.team === props.player.team) {
                     dispatch({type: RoomStateActionType.SetNodeSelectedID, nodeSelectedID: nodeHovered.id});
