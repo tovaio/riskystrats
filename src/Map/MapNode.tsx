@@ -1,5 +1,5 @@
 import React from 'react';
-import { nodeColors, nodeRadius, edgeWidth, scaleFactor } from '../Util';
+import { nodeColors, nodeRadius, edgeWidth, fontStack } from '../Util';
 
 import { Team } from '../Player';
 
@@ -28,11 +28,11 @@ interface MapNodeProps {
 
 // Types of buildings on nodes
 export enum NodeType {
-    Normal,             // No building (default for all nodes)
-    Factory,            // Factory (generates more troops per second)
-    PowerPlant,         // PowerPlant (increases production output of adjacent factories)
-    Fort,               // Fort (adds defensive bonus against incoming enemy armies)
-    Artillery           // Artillery (adds offensive bonus to outgoing friendly armies)
+    Normal,                                             // No building (default for all nodes)
+    Factory,                                            // Factory (generates more troops per second)
+    PowerPlant,                                         // PowerPlant (increases production output of adjacent factories)
+    Fort,                                               // Fort (adds defensive bonus against incoming enemy armies)
+    Artillery                                           // Artillery (adds offensive bonus to outgoing friendly armies)
 }
 
 /*
@@ -57,57 +57,66 @@ const MapNode: React.FC<MapNodeProps> = (props) => {
     const borderStyle = (visible && props.node.type !== NodeType.Normal) ? ((props.node.type === NodeType.Artillery || props.node.type === NodeType.Factory) ? 'double' : 'inset') : 'solid';
 
     return (
-        <div
-            className = 'mapNode'
+        <g
+            style = {{
+                // Cursor
+                cursor: (selectable && hovered) ? 'pointer' : 'default'
+            }}
 
             // Callbacks
             onMouseEnter = {() => {if (props.onMouseEnterNode !== undefined) props.onMouseEnterNode(props.node);}}
             onMouseLeave = {() => {if (props.onMouseLeaveNode !== undefined) props.onMouseLeaveNode(props.node);}}
+        >
+            <circle
+                // Position
+                cx = {props.node.x}
+                cy = {props.node.y}
+                r = {nodeRadius}
 
-            // CSS
-            style = {{
-                // Dimensions
-                width: `${nodeRadius * 2 / scaleFactor}vmin`,
-                height: `${nodeRadius * 2 / scaleFactor}vmin`,
+                // Style
+                style = {{
+                    // Fill color
+                    fill: invertColors ? secondaryColor : primaryColor,
+
+                    // Stroke style
+                    stroke: invertColors ? primaryColor : secondaryColor,
+                    strokeWidth: edgeWidth,
+
+                    // Transition
+                    transition: 'fill 0.15s, stroke 0.15s'
+                }}
+            />
+            <text
+                // Text position
+                textAnchor = 'middle'
+                alignmentBaseline = 'middle'
 
                 // Position
-                left: `calc(50% + ${(props.node.x - nodeRadius) / scaleFactor}vmin)`,
-                top: `calc(50% + ${(props.node.y - nodeRadius) / scaleFactor}vmin)`,
+                x = {props.node.x}
+                y = {props.node.y}
 
-                // Border
-                borderStyle: borderStyle,
-                borderWidth: `${edgeWidth / scaleFactor}vmin`,
-                borderRadius: borderRadius,
+                // Style
+                style = {{
+                    // Text style
+                    fill: invertColors ? primaryColor : secondaryColor,
+                    fontFamily: fontStack,
+                    fontWeight: 900,
+                    fontSize: 2,
 
-                // Color
-                backgroundColor: invertColors ? secondaryColor : primaryColor,
-                color: invertColors ? primaryColor : secondaryColor,
-                borderColor: invertColors ? primaryColor : secondaryColor,
+                    // Stroke style
+                    paintOrder: 'stroke',
+                    stroke: invertColors ? secondaryColor: primaryColor,
+                    strokeWidth: 0.5,
+                    strokeLinecap: 'round',
+                    strokeLinejoin: 'round',
 
-                // Cursor
-                cursor: (selectable && hovered) ? 'pointer' : 'default',
-
-                // Text stroke
-                textShadow: `
-                    -2px -2px 0 ${invertColors ? secondaryColor: primaryColor},
-                    -2px  2px 0 ${invertColors ? secondaryColor: primaryColor},
-                     2px -2px 0 ${invertColors ? secondaryColor: primaryColor},
-                     2px  2px 0 ${invertColors ? secondaryColor: primaryColor},
-                    -2px    0 0 ${invertColors ? secondaryColor: primaryColor},
-                     2px    0 0 ${invertColors ? secondaryColor: primaryColor},
-                       0 -2px 0 ${invertColors ? secondaryColor: primaryColor},
-                       0  2px 0 ${invertColors ? secondaryColor: primaryColor}
-                `,
-
-                // Assignment glow
-                boxShadow: assigned ? `0 0 30px #ffff00` : ''
-            }}
-        >
-            {
-                // Troop count (only if visible)
-                <p>{(visible) ? props.node.troops : null}</p>
-            }
-        </div>
+                    // Transition
+                    transition: 'fill 0.15s, stroke 0.15s'
+                }}
+            >
+                {(visible) ? props.node.troops : null}
+            </text>
+        </g>
     );
 }
 

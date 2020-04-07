@@ -70,7 +70,10 @@ export const nodeColors = {
     [Team.Orange]: '#DD7700',
     [Team.Purple]: '#7700DD'
 };
+
 export const nodeRadius = 2;
 export const armyRadius = 1;
 export const edgeWidth = 5/9;
 export const scaleFactor = 1;
+
+export const fontStack = "'Courier New', Courier, monospace";

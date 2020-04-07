@@ -1,5 +1,5 @@
 import React from 'react';
-import { nodeRadius, armyRadius, scaleFactor, nodeColors } from '../Util';
+import { nodeRadius, armyRadius, fontStack, nodeColors, edgeWidth } from '../Util';
 
 import { MapNodeData } from './MapNode';
 import { Team } from '../Player';
@@ -38,38 +38,50 @@ const MapArmy: React.FC<MapArmyProps> = (props) => {
     const color = nodeColors[props.army.team];
 
     return (
-        <div
-            className='mapArmy'
+        <>
+            <circle
+                // Size
+                r = {armyRadius}
+                transform = {`translate(${x}, ${y})`}
 
-            // CSS
-            style={{
-                // Dimensions
-                width: `${armyRadius * 2 / scaleFactor}vmin`,
-                height: `${armyRadius * 2 / scaleFactor}vmin`,
+                // Style
+                style = {{
+                    // Fill color
+                    fill: color,
 
-                // Position
-                left: `calc(50% + ${(x - armyRadius) / scaleFactor}vmin)`,
-                top: `calc(50% + ${(y - armyRadius) / scaleFactor}vmin)`,
+                    // Transition
+                    transition: 'all 0.5s linear'
+                }}
+            />
+            <text
+                // Text position
+                textAnchor = 'middle'
+                alignmentBaseline = 'middle'
+                transform = {`translate(${x}, ${y})`}
 
-                // Color
-                backgroundColor: color,
+                // Style
+                style = {{
+                    // Text style
+                    fill: '#eeeeee',
+                    fontFamily: fontStack,
+                    fontWeight: 900,
+                    fontSize: 1.5,
 
-                // Text stroke
-                textShadow: `
-                    -1px -1px 0 ${color},
-                    -1px  1px 0 ${color},
-                     1px -1px 0 ${color},
-                     1px  1px 0 ${color},
-                    -1px    0 0 ${color},
-                     1px    0 0 ${color},
-                       0 -1px 0 ${color},
-                       0  1px 0 ${color}
-                `
-            }}
-        >
-            <p>{props.army.troops}</p>
-        </div>
-    )
+                    // Stroke style
+                    paintOrder: 'stroke',
+                    stroke: color,
+                    strokeWidth: 0.25,
+                    strokeLinecap: 'round',
+                    strokeLinejoin: 'round',
+
+                    // Transition
+                    transition: 'all 0.5s linear'
+                }}
+            >
+                {props.army.troops}
+            </text>
+        </>
+    );
 }
 
 export default MapArmy;

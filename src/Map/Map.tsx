@@ -44,7 +44,7 @@ const Map: React.FC<MapProps> = props => {
 
     return (
         <>
-            {nodes.concat(edges)}
+            {edges.concat(nodes)}
         </>
     );
 }

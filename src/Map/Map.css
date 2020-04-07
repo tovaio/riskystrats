@@ -1,4 +1,4 @@
-.map {
+.game {
     position: absolute;
     margin: 0;
     padding: 0;
@@ -6,37 +6,6 @@
     height: 100vh;
     left: 0;
     top: 0;
-}
-
-.mapNode {
-    border-radius: 50%;
-    box-sizing: border-box;
-    border: solid;
-    border-color: #eeeeee;
-    background-color: #444444;
-    position: absolute;
-    z-index: 3;
-    transition: background-color 0.15s, color 0.15s, border 0.15s;
-    display: flex;
-    margin: 0;
-    padding: 0;
-}
-
-.mapNode:before {
-    content: "";
-    margin-left: -100%;
-}
-
-.mapNode:after {
-    content: "";
-    margin-right: -100%;
-}
-
-.mapNode p {
-    margin: auto;
-    text-align: center;
-    white-space: nowrap;
-    transition: text-shadow 0.15s;
 }
 
 .mapArmy {
@@ -71,13 +40,4 @@ p {
     font-family: 'Courier New', Courier, monospace;
     font-size: 2vmin;
     font-weight: 900;
-}
-
-.mapEdge {
-    background-color: #eeeeee;
-    position: absolute;
-    margin: 0;
-    padding: 0;
-    transform-origin: 0 0;
-    transition: background-color 0.2s;
 }

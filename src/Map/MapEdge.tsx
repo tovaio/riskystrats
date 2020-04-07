@@ -1,5 +1,5 @@
 import React from 'react';
-import { nodeColors, edgeWidth, scaleFactor } from '../Util';
+import { nodeColors, edgeWidth } from '../Util';
 
 import { Team } from '../Player';
 import { MapNodeData } from './MapNode';
@@ -20,33 +20,22 @@ const MapEdge: React.FC<MapEdgeProps> = (props) => {
     // Helper booleans
     const visible = props.team === Team.Neutral || props.node1.team === props.team || props.node2.team === props.team;
 
-    // Positional math
-    const xDiff = props.node2.x - props.node1.x;
-    const yDiff = props.node2.y - props.node1.y;
-
-    const angle = Math.atan2(yDiff, xDiff);
-    const length = Math.sqrt(xDiff * xDiff + yDiff * yDiff);
-
-    const x = props.node1.x + Math.cos(angle - Math.PI / 2) * edgeWidth / 2;
-    const y = props.node1.y + Math.sin(angle - Math.PI / 2) * edgeWidth / 2;
-
     return (
-        <div
-            className='mapEdge'
+        <line
+            // Position
+            x1 = {props.node1.x}
+            y1 = {props.node1.y}
+            x2 = {props.node2.x}
+            y2 = {props.node2.y}
 
-            // CSS
+            // Style
             style={{
-                // Dimensions
-                width: `${length / scaleFactor}vmin`,
-                height: `${edgeWidth / scaleFactor}vmin`,
+                // Stroke style
+                stroke: visible ? '#eeeeee' : nodeColors[Team.Neutral],
+                strokeWidth: edgeWidth,
 
-                // Position
-                left: `calc(50% + ${x / scaleFactor}vmin)`,
-                top: `calc(50% + ${y / scaleFactor}vmin)`,
-                transform: `rotate(${angle * 180 / Math.PI}deg)`,
-
-                // Color
-                backgroundColor: visible ? '#eeeeee' : nodeColors[Team.Neutral]
+                // Transition
+                transition: 'stroke 0.15s'
             }}
         />
     );

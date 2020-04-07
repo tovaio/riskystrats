@@ -31,16 +31,22 @@ const Game: React.FC<GameProps> = props => {
     ));
 
     return (
-        <div className="map">
-            <Map
-                map = {props.game.map}
-                team = {props.team}
-                nodeHoveredID = {props.nodeHoveredID}
-                nodeSelectedID = {props.nodeSelectedID}
-                onMouseEnterNode = {props.onMouseEnterNode}
-                onMouseLeaveNode = {props.onMouseLeaveNode}
-            />
-            {armies}
+        <div className="game">
+            <svg
+                width = "100%"
+                height = "100%"
+                viewBox = "-50 -50 100 100"
+            >
+                <Map
+                    map = {props.game.map}
+                    team = {props.team}
+                    nodeHoveredID = {props.nodeHoveredID}
+                    nodeSelectedID = {props.nodeSelectedID}
+                    onMouseEnterNode = {props.onMouseEnterNode}
+                    onMouseLeaveNode = {props.onMouseLeaveNode}
+                />
+                {armies}
+            </svg>
         </div>
     );
 }
