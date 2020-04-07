@@ -8,36 +8,54 @@
     top: 0;
 }
 
-.mapArmy {
-    color: #eeeeee;
-    border-radius: 50%;
-    position: absolute;
-    margin: 0;
-    padding: 0;
-    z-index: 4;
-    display: flex;
-    transition: left 0.5s linear, top 0.5s linear;
-}
-
-.mapArmy:before {
-    content: "";
-    margin-left: -100%;
-}
-
-.mapArmy:after {
-    content: "";
-    margin-right: -100%;
-}
-
-.mapArmy p {
-    margin: auto;
-    font-size: 1.5vmin;
-    text-align: center;
-    white-space: nowrap;
-}
-
 p {
     font-family: 'Courier New', Courier, monospace;
     font-size: 2vmin;
     font-weight: 900;
+}
+
+@keyframes selectRotate {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    10% {
+        transform: rotate(36deg) scale(1.15);
+    }
+    20% {
+        transform: rotate(72deg) scale(1);
+    }
+    30% {
+        transform: rotate(108deg) scale(1.15);
+    }
+    40% {
+        transform: rotate(144deg) scale(1);
+    }
+    50% {
+        transform: rotate(180deg) scale(1.15);
+    }
+    60% {
+        transform: rotate(216deg) scale(1);
+    }
+    70% {
+        transform: rotate(252deg) scale(1.15);
+    }
+    80% {
+        transform: rotate(288deg) scale(1);
+    }
+    90% {
+        transform: rotate(324deg) scale(1.15);
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+.select {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation-name: selectRotate;
+    animation-duration: 10s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
 }

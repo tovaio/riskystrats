@@ -116,6 +116,26 @@ const MapNode: React.FC<MapNodeProps> = (props) => {
             >
                 {(visible) ? props.node.troops : null}
             </text>
+            {
+                assigned ? (
+                    <circle
+                        className = 'select'
+                        cx = {props.node.x}
+                        cy = {props.node.y}
+                        r = {nodeRadius * 1.5}
+
+                        style = {{
+                            // Stroke
+                            stroke: '#eeee00',
+                            strokeWidth: edgeWidth,
+                            strokeDasharray: '1 1 1 1 1 1 1 1',
+
+                            // No fill
+                            fillOpacity: 0
+                        }}
+                    />
+                ) : null
+            }
         </g>
     );
 }
