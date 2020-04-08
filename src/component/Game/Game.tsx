@@ -1,16 +1,20 @@
 import React from 'react';
 
-import { Team } from './Player';
+import { GameData, Viewport } from './GameData';
 
-import Map, { MapData, MapDataFlat } from './Map/Map';
-import MapArmy, { MapArmyData, MapArmyDataFlat } from './Map/MapArmy';
-import { MapNodeData } from './Map/MapNode';
+import Map from 'component/Map/Map';
+import MapArmy from 'component/Map/MapArmy/MapArmy'
+import { MapNodeData } from 'component/Map/MapNode/MapNodeData';
 
+import { Team } from 'component/Player/PlayerData';
+
+// Properties for Game component
 interface GameProps {
     game: GameData,
     team: Team,
     nodeHoveredID?: number,
     nodeSelectedID?: number,
+    viewport?: Viewport,
     onMouseEnterNode?: (node: MapNodeData) => void,
     onMouseLeaveNode?: (node: MapNodeData) => void
 }
@@ -22,6 +26,12 @@ interface GameProps {
     (one particular example of this is for visualizing replays of games, viewing AI play each other, etc.)
 */
 const Game: React.FC<GameProps> = props => {
+    const viewport: Viewport = props.viewport || {
+        x: -50,
+        y: -50,
+        d: 100
+    }
+
     const armies = props.game.armies.map(army => (
         <MapArmy
             army = {army}
@@ -35,7 +45,10 @@ const Game: React.FC<GameProps> = props => {
             <svg
                 width = "100%"
                 height = "100%"
-                viewBox = "-50 -50 100 100"
+                viewBox = {`${viewport.x - viewport.d / 2} ${viewport.y - viewport.d / 2} ${viewport.d} ${viewport.d}`}
+                style = {{
+                    transition: 'all 0.5s'
+                }}
             >
                 <Map
                     map = {props.game.map}
@@ -52,13 +65,3 @@ const Game: React.FC<GameProps> = props => {
 }
 
 export default Game;
-
-export interface GameData {
-    map: MapData,
-    armies: MapArmyData[]
-}
-
-export interface GameDataFlat {
-    map: MapDataFlat,
-    armies: MapArmyDataFlat[]
-}

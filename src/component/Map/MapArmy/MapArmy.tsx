@@ -1,8 +1,11 @@
 import React from 'react';
-import { nodeRadius, armyRadius, fontStack, nodeColors, edgeWidth } from '../Util';
+import { nodeRadius, armyRadius, nodeColors } from 'style/Constants';
 
-import { MapNodeData } from './MapNode';
-import { Team } from '../Player';
+import { MapArmyData } from './MapArmyData';
+
+import { Team } from 'component/Player/PlayerData';
+
+import styles from './MapArmy.module.scss';
 
 // Properties for MapArmy component
 interface MapArmyProps {
@@ -40,42 +43,27 @@ const MapArmy: React.FC<MapArmyProps> = (props) => {
     return (
         <>
             <circle
-                // Size
+                className = {styles.mapArmyCircle}
+
+                // Size and position
                 r = {armyRadius}
                 transform = {`translate(${x}, ${y})`}
 
-                // Style
+                // Color
                 style = {{
-                    // Fill color
-                    fill: color,
-
-                    // Transition
-                    transition: 'all 0.5s linear'
+                    fill: color
                 }}
             />
             <text
+                className = {styles.mapArmyText}
+
                 // Text position
-                textAnchor = 'middle'
-                alignmentBaseline = 'middle'
+                dominantBaseline = 'middle'
                 transform = {`translate(${x}, ${y})`}
 
-                // Style
+                // Color
                 style = {{
-                    // Text style
-                    fill: '#eeeeee',
-                    fontFamily: fontStack,
-                    fontWeight: 900,
-                    fontSize: 1.5,
-
-                    // Stroke style
-                    paintOrder: 'stroke',
-                    stroke: color,
-                    strokeWidth: 0.25,
-                    strokeLinecap: 'round',
-                    strokeLinejoin: 'round',
-
-                    // Transition
-                    transition: 'all 0.5s linear'
+                    stroke: color
                 }}
             >
                 {props.army.troops}
@@ -85,21 +73,3 @@ const MapArmy: React.FC<MapArmyProps> = (props) => {
 }
 
 export default MapArmy;
-
-export interface MapArmyData {
-    from: MapNodeData,
-    to: MapNodeData,
-    troops: number,
-    distance: number,
-    team: Team,
-    id: number
-}
-
-export interface MapArmyDataFlat {
-    from: number,
-    to: number,
-    troops: number,
-    distance: number,
-    team: Team,
-    id: number
-}

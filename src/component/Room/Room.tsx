@@ -1,11 +1,14 @@
 import React, { useCallback, useEffect } from 'react';
 
+import { RoomData } from './RoomData';
 import { useRoomState, RoomStateActionType } from './RoomState';
 
-import { PlayerData, Team } from './Player';
-import Game, { GameData, GameDataFlat } from './Game';
-import { MapNodeData, NodeType } from './Map/MapNode';
+import Game from 'component/Game/Game';
+import { MapNodeData, NodeType } from 'component/Map/MapNode/MapNodeData';
 
+import { PlayerData, Team } from 'component/Player/PlayerData';
+
+// Properties for Room component
 interface RoomProps {
     socket: SocketIOClient.Socket,
     room: RoomData,
@@ -88,6 +91,7 @@ const Room: React.FC<RoomProps> = props => {
     // Callback to adjust nodeSelected when mouse is clicked
     const onMouseDown = useCallback(
         () => {
+            dispatch({type: RoomStateActionType.SetMouseDown, mouseDown: true});
             if (state.nodeHoveredID !== undefined && props.room !== undefined && props.room.game !== undefined && props.player.team !== Team.Neutral) {
                 const nodeHovered = props.room.game.map.nodes[state.nodeHoveredID];
                 if (nodeHovered !== undefined && nodeHovered.team === props.player.team) {
@@ -100,26 +104,50 @@ const Room: React.FC<RoomProps> = props => {
         [props, state, dispatch]
     );
 
-    // Bind event listener for keyDown
+    // Callback when mouse up
+    const onMouseUp = useCallback(
+        () => {
+            dispatch({type: RoomStateActionType.SetMouseDown, mouseDown: false});
+        },
+        [dispatch]
+    );
+
+    // Callback when mouse moves
+    const onMouseMove = useCallback(
+        (e: MouseEvent) => {
+            const buttons = e.buttons || e.which;
+            if ((buttons & 1) === 1) { // LMB down
+                dispatch({type: RoomStateActionType.MoveViewport, dx: -e.movementX, dy: -e.movementY, md: 1});
+            }
+        },
+        [dispatch]
+    );
+
+    // Callback when mouse wheel
+    const onMouseWheel = useCallback(
+        (e: WheelEvent) => {
+            dispatch({type: RoomStateActionType.MoveViewport, dx: 0, dy: 0, md: Math.pow(1.001, e.deltaY)});
+        },
+        [dispatch]
+    );
+
+    // Bind event listeners
     useEffect(
         () => {
             document.addEventListener('keydown', onKeyDown);
+            document.addEventListener('mousedown', onMouseDown);
+            document.addEventListener('mouseup', onMouseUp);
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('wheel', onMouseWheel);
             return () => {
                 document.removeEventListener('keydown', onKeyDown);
-            }
-        },
-        [onKeyDown]
-    );
-
-    // Bind event listener for mouseDown
-    useEffect(
-        () => {
-            document.addEventListener('mousedown', onMouseDown);
-            return () => {
                 document.removeEventListener('mousedown', onMouseDown);
+                document.removeEventListener('mouseup', onMouseUp);
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('wheel', onMouseWheel);
             }
         },
-        [onMouseDown]
+        [onKeyDown, onMouseDown, onMouseUp, onMouseMove, onMouseWheel]
     );
 
     if (props.room.game !== undefined) {
@@ -129,6 +157,7 @@ const Room: React.FC<RoomProps> = props => {
                 team = {props.player.team}
                 nodeHoveredID = {state.nodeHoveredID}
                 nodeSelectedID = {state.nodeSelectedID}
+                viewport = {state.viewport}
                 onMouseEnterNode = {onMouseEnterNode}
                 onMouseLeaveNode = {onMouseLeaveNode}
             />
@@ -147,25 +176,3 @@ const Room: React.FC<RoomProps> = props => {
 }
 
 export default Room;
-
-export interface RoomData {
-    game: GameData | undefined,
-    players: PlayerData[],
-    spectators: PlayerData[],
-    summary: RoomSummaryData
-}
-
-export interface RoomDataFlat {
-    game: GameDataFlat | undefined,
-    players: PlayerData[],
-    spectators: PlayerData[],
-    summary: RoomSummaryData
-}
-
-export interface RoomSummaryData {
-    name: string,
-    id: string,
-    nPlayers: number,
-    maxPlayers: number,
-    nSpectators: number
-}

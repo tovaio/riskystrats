@@ -1,12 +1,16 @@
 import React from 'react';
 
-import { Team } from '../Player';
+import { MapData } from './MapData';
 
-import MapNode, { MapNodeData, MapNodeDataFlat } from './MapNode';
-import MapEdge from './MapEdge';
+import MapNode from './MapNode/MapNode';
+import { MapNodeData } from './MapNode/MapNodeData';
+import MapEdge from './MapEdge/MapEdge';
+
+import { Team } from 'component/Player/PlayerData';
 
 import './Map.css';
 
+// Properties for Map component
 interface MapProps {
     map: MapData,
     team: Team,
@@ -16,6 +20,10 @@ interface MapProps {
     onMouseLeaveNode?: (node: MapNodeData) => void
 }
 
+/*
+    Map:
+    React component which resembles just the geometry of the game (nodes and edges)
+*/
 const Map: React.FC<MapProps> = props => {
     const nodeHovered = (props.nodeHoveredID !== undefined) ? props.map.nodes[props.nodeHoveredID] : undefined;
     const nodeSelected = (props.nodeSelectedID !== undefined) ? props.map.nodes[props.nodeSelectedID] : undefined;
@@ -50,13 +58,3 @@ const Map: React.FC<MapProps> = props => {
 }
 
 export default Map;
-
-export interface MapData {
-    nodes: MapNodeData[],
-    edges: [MapNodeData, MapNodeData][]
-}
-
-export interface MapDataFlat {
-    nodes: MapNodeDataFlat[],
-    edges: [number, number][]
-}

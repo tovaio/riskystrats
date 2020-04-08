@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
 
-import { RoomSummaryData } from './Room';
+import { RoomSummaryData } from './LobbyData';
 
+// Properties for Lobby component
 interface LobbyProps {
     socket: SocketIOClient.Socket | undefined,
     roomList: RoomSummaryData[] | undefined;

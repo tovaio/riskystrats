@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import io from 'socket.io-client';
 
-import Lobby from './Lobby';
-
-import { unflatten } from './Util';
 import { useClientState, ClientStateActionType } from './ClientState';
 
-import { PlayerData } from './Player';
-import Room, { RoomDataFlat, RoomSummaryData } from './Room';
+import Lobby from 'component/Lobby/Lobby';
+import { RoomSummaryData } from 'component/Lobby/LobbyData';
+import Room from 'component/Room/Room';
+import { RoomDataFlat, unflattenRoom } from 'component/Room/RoomData';
+
+import { PlayerData } from 'component/Player/PlayerData';
 
 /*
     Client:
@@ -37,7 +38,7 @@ const Client: React.FC = () => {
 
             socket.on('roomData', (roomDataJSON: string) => {
                 const flatRoomData: RoomDataFlat | null = JSON.parse(roomDataJSON);
-                const roomData = (flatRoomData !== null) ? unflatten(flatRoomData) : undefined;
+                const roomData = (flatRoomData !== null) ? unflattenRoom(flatRoomData) : undefined;
                 dispatch({type: ClientStateActionType.SetRoom, room: roomData});
             });
 

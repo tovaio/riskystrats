@@ -1,7 +1,11 @@
 import React from 'react';
-import { nodeColors, nodeRadius, edgeWidth, fontStack } from '../Util';
+import { nodeColors, nodeRadius, edgeWidth } from 'style/Constants';
 
-import { Team } from '../Player';
+import { MapNodeData } from './MapNodeData';
+
+import { Team } from 'component/Player/PlayerData';
+
+import styles from './MapNode.module.scss';
 
 // Determines if a node is visible to a certain player.
 const isVisible = (node: MapNodeData, team: Team): boolean => {
@@ -26,15 +30,6 @@ interface MapNodeProps {
     onMouseLeaveNode?: (node: MapNodeData) => void      // Callback for when the player's mouse leaves the node
 }
 
-// Types of buildings on nodes
-export enum NodeType {
-    Normal,                                             // No building (default for all nodes)
-    Factory,                                            // Factory (generates more troops per second)
-    PowerPlant,                                         // PowerPlant (increases production output of adjacent factories)
-    Fort,                                               // Fort (adds defensive bonus against incoming enemy armies)
-    Artillery                                           // Artillery (adds offensive bonus to outgoing friendly armies)
-}
-
 /*
     MapNode:
     Component which visualizes a node on the game map
@@ -53,8 +48,8 @@ const MapNode: React.FC<MapNodeProps> = (props) => {
     const invertColors = (selectable && hovered) || selected;
 
     // Border
-    const borderRadius = (visible && (props.node.type === NodeType.Artillery || props.node.type === NodeType.Fort)) ? 5 : 50;
-    const borderStyle = (visible && props.node.type !== NodeType.Normal) ? ((props.node.type === NodeType.Artillery || props.node.type === NodeType.Factory) ? 'double' : 'inset') : 'solid';
+    //const borderRadius = (visible && (props.node.type === NodeType.Artillery || props.node.type === NodeType.Fort)) ? 5 : 50;
+    //const borderStyle = (visible && props.node.type !== NodeType.Normal) ? ((props.node.type === NodeType.Artillery || props.node.type === NodeType.Factory) ? 'double' : 'inset') : 'solid';
 
     return (
         <g
@@ -68,50 +63,33 @@ const MapNode: React.FC<MapNodeProps> = (props) => {
             onMouseLeave = {() => {if (props.onMouseLeaveNode !== undefined) props.onMouseLeaveNode(props.node);}}
         >
             <circle
+                className = {styles.mapNodeCircle}
+
                 // Position
                 cx = {props.node.x}
                 cy = {props.node.y}
                 r = {nodeRadius}
 
-                // Style
+                // Colors
                 style = {{
-                    // Fill color
                     fill: invertColors ? secondaryColor : primaryColor,
-
-                    // Stroke style
-                    stroke: invertColors ? primaryColor : secondaryColor,
-                    strokeWidth: edgeWidth,
-
-                    // Transition
-                    transition: 'fill 0.15s, stroke 0.15s'
+                    stroke: invertColors ? primaryColor : secondaryColor
                 }}
             />
             <text
+                className = {styles.mapNodeText}
+
                 // Text position
-                textAnchor = 'middle'
-                alignmentBaseline = 'middle'
+                dominantBaseline = 'middle'
 
                 // Position
                 x = {props.node.x}
                 y = {props.node.y}
 
-                // Style
+                // Colors
                 style = {{
-                    // Text style
                     fill: invertColors ? primaryColor : secondaryColor,
-                    fontFamily: fontStack,
-                    fontWeight: 900,
-                    fontSize: 2,
-
-                    // Stroke style
-                    paintOrder: 'stroke',
-                    stroke: invertColors ? secondaryColor: primaryColor,
-                    strokeWidth: 0.5,
-                    strokeLinecap: 'round',
-                    strokeLinejoin: 'round',
-
-                    // Transition
-                    transition: 'fill 0.15s, stroke 0.15s'
+                    stroke: invertColors ? secondaryColor: primaryColor
                 }}
             >
                 {(visible) ? props.node.troops : null}
@@ -141,25 +119,3 @@ const MapNode: React.FC<MapNodeProps> = (props) => {
 }
 
 export default MapNode;
-
-export interface MapNodeData {
-    x: number,
-    y: number,
-    id: number,
-    adj: MapNodeData[],
-    team: Team,
-    troops: number,
-    type: NodeType,
-    assign: MapNodeData | undefined
-}
-
-export interface MapNodeDataFlat {
-    x: number,
-    y: number,
-    id: number,
-    adj: number[],
-    team: Team,
-    troops: number,
-    type: NodeType,
-    assign: number
-}

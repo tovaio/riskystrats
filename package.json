@@ -12,7 +12,7 @@
     "@types/react-dom": "^16.9.5",
     "@types/socket.io-client": "^1.4.32",
     "acorn": "^7.1.1",
-    "node-sass": "^4.13.1",
+    "node-sass": "npm:sass",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-scripts": "3.4.0",

@@ -1,0 +1,16 @@
+@use 'style/base';
+
+@mixin mapEdge {
+    stroke-width: base.$edge-width;
+    transition: stroke 0.15s;
+}
+
+.mapEdgeVisible {
+    @include mapEdge;
+    stroke: base.$white
+}
+
+.mapEdgeInvisible {
+    @include mapEdge;
+    stroke: base.$grey;
+}

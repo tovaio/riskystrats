@@ -1,5 +1,5 @@
 import React from 'react';
-import Client from './Client';
+import Client from 'component/Client/Client';
 import './App.css';
 
 function App() {

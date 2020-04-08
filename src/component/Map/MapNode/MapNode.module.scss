@@ -1,0 +1,21 @@
+@use 'style/base';
+
+.mapNodeCircle {
+    stroke-width: base.$edge-width;
+    transition: fill 0.15s, stroke 0.15s;
+}
+
+.mapNodeText {
+    text-anchor: middle;
+    
+    font-family: base.$font-stack;
+    font-weight: base.$font-weight;
+    font-size: 0.14em;
+
+    paint-order: stroke;
+    stroke-width: 0.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    transition: fill 0.15s, stroke 0.15s;
+}

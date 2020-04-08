@@ -1,0 +1,21 @@
+@use 'style/base';
+
+.mapArmyCircle {
+    transition: all 0.5s linear;
+}
+
+.mapArmyText {
+    text-anchor: middle;
+    
+    fill: base.$white;
+    font-family: base.$font-stack;
+    font-weight: base.$font-weight;
+    font-size: 0.105em;
+
+    paint-order: stroke;
+    stroke-width: 0.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    transition: all 0.5s linear;
+}

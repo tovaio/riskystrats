@@ -1,8 +1,10 @@
 import React from 'react';
-import { nodeColors, edgeWidth } from '../Util';
+import { nodeColors, edgeWidth } from 'style/Constants';
 
-import { Team } from '../Player';
-import { MapNodeData } from './MapNode';
+import { MapNodeData } from 'component/Map/MapNode/MapNodeData';
+import { Team } from 'component/Player/PlayerData';
+
+import styles from './MapEdge.module.scss';
 
 // Properties for MapEdge component
 interface MapEdgeProps {
@@ -16,12 +18,14 @@ interface MapEdgeProps {
     MapEdge:
     Component which represents an edge between two nodes on the game map
 */
-const MapEdge: React.FC<MapEdgeProps> = (props) => {
+const MapEdge: React.FC<MapEdgeProps> = props => {
     // Helper booleans
     const visible = props.team === Team.Neutral || props.node1.team === props.team || props.node2.team === props.team;
 
     return (
         <line
+            className = {visible ? styles.mapEdgeVisible : styles.mapEdgeInvisible}
+
             // Position
             x1 = {props.node1.x}
             y1 = {props.node1.y}

@@ -1,13 +1,14 @@
 import { useReducer } from 'react';
 
-import { PlayerData } from './Player';
-import { RoomData, RoomSummaryData } from './Room';
+import { PlayerData } from 'component/Player/PlayerData';
+import { RoomData } from 'component/Room/RoomData';
+import { RoomListData } from 'component/Lobby/LobbyData';
 
 interface ClientState {
     socket: SocketIOClient.Socket | undefined,
     room: RoomData | undefined,
     player: PlayerData | undefined,
-    roomList: RoomSummaryData[] | undefined
+    roomList: RoomListData | undefined
 }
 
 export enum ClientStateActionType {
@@ -34,7 +35,7 @@ interface SetPlayerAction {
 
 interface SetRoomListAction {
     type: ClientStateActionType.SetRoomList,
-    roomList: RoomSummaryData[] | undefined
+    roomList: RoomListData | undefined
 }
 
 type ClientStateAction = SetSocketAction | SetRoomAction | SetPlayerAction | SetRoomListAction;
