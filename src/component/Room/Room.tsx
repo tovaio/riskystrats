@@ -112,42 +112,19 @@ const Room: React.FC<RoomProps> = props => {
         [dispatch]
     );
 
-    // Callback when mouse moves
-    const onMouseMove = useCallback(
-        (e: MouseEvent) => {
-            const buttons = e.buttons || e.which;
-            if ((buttons & 1) === 1) { // LMB down
-                dispatch({type: RoomStateActionType.MoveViewport, dx: -e.movementX, dy: -e.movementY, md: 1});
-            }
-        },
-        [dispatch]
-    );
-
-    // Callback when mouse wheel
-    const onMouseWheel = useCallback(
-        (e: WheelEvent) => {
-            dispatch({type: RoomStateActionType.MoveViewport, dx: 0, dy: 0, md: Math.pow(1.001, e.deltaY)});
-        },
-        [dispatch]
-    );
-
     // Bind event listeners
     useEffect(
         () => {
             document.addEventListener('keydown', onKeyDown);
             document.addEventListener('mousedown', onMouseDown);
             document.addEventListener('mouseup', onMouseUp);
-            document.addEventListener('mousemove', onMouseMove);
-            document.addEventListener('wheel', onMouseWheel);
             return () => {
                 document.removeEventListener('keydown', onKeyDown);
                 document.removeEventListener('mousedown', onMouseDown);
                 document.removeEventListener('mouseup', onMouseUp);
-                document.removeEventListener('mousemove', onMouseMove);
-                document.removeEventListener('wheel', onMouseWheel);
             }
         },
-        [onKeyDown, onMouseDown, onMouseUp, onMouseMove, onMouseWheel]
+        [onKeyDown, onMouseDown, onMouseUp]
     );
 
     if (props.room.game !== undefined) {
@@ -157,7 +134,6 @@ const Room: React.FC<RoomProps> = props => {
                 team = {props.player.team}
                 nodeHoveredID = {state.nodeHoveredID}
                 nodeSelectedID = {state.nodeSelectedID}
-                viewport = {state.viewport}
                 onMouseEnterNode = {onMouseEnterNode}
                 onMouseLeaveNode = {onMouseLeaveNode}
             />

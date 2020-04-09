@@ -1,10 +1,12 @@
-@use 'style/base';
+@use 'src/style/base';
 
 .mapArmyCircle {
     transition: all 0.5s linear;
 }
 
 .mapArmyText {
+    @include base.unselectable();
+
     text-anchor: middle;
     
     fill: base.$white;

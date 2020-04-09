@@ -1,4 +1,4 @@
-@use 'style/base';
+@use 'src/style/base';
 
 @mixin mapEdge {
     stroke-width: base.$edge-width;
@@ -6,11 +6,11 @@
 }
 
 .mapEdgeVisible {
-    @include mapEdge;
+    @include mapEdge();
     stroke: base.$white
 }
 
 .mapEdgeInvisible {
-    @include mapEdge;
+    @include mapEdge();
     stroke: base.$grey;
 }

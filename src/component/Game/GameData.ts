@@ -19,3 +19,9 @@ export interface Viewport {
     y: number,
     d: number
 }
+
+// Mouse data
+export interface MousePosition {
+    x: number,
+    y: number
+}
