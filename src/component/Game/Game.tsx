@@ -7,7 +7,10 @@ import Map from 'component/Map/Map';
 import MapArmy from 'component/Map/MapArmy/MapArmy'
 import { MapNodeData } from 'component/Map/MapNode/MapNodeData';
 
+import SelectedCircle from 'component/Effect/SelectedCircle';
+
 import { Team } from 'component/Player/PlayerData';
+import { MapArmyData } from 'component/Map/MapArmy/MapArmyData';
 
 // Properties for Game component
 interface GameProps {
@@ -64,15 +67,12 @@ const Game: React.FC<GameProps> = props => {
 
             const setViewport = (newViewport: Viewport) => {
                 viewport = newViewport;
-                gsap.to(
-                    '#game-svg', 
-                    {
-                        attr: {
-                            viewBox: `${viewport.x - viewport.d / 2} ${viewport.y - viewport.d / 2} ${viewport.d} ${viewport.d}`
-                        },
-                        duration: 0.25
-                    }
-                );
+                gsap.to('#game-svg', 0.3, {
+                    attr: {
+                        viewBox: `${viewport.x - viewport.d / 2} ${viewport.y - viewport.d / 2} ${viewport.d} ${viewport.d}`
+                    },
+                    ease: "power3.out"
+                });
             }
 
             setViewport({
@@ -118,13 +118,15 @@ const Game: React.FC<GameProps> = props => {
         [minX, maxX, minY, maxY, maxD, minD]
     );
 
-    const armies = props.game.armies.map(army => (
+    const armies = props.game.armies.sort((a: MapArmyData, b: MapArmyData) => a.troops - b.troops).map(army => (
         <MapArmy
             army = {army}
             team = {props.team}
             key = {`army_${army.id}`}
         />
     ));
+
+    const nodeSelected = (props.nodeSelectedID !== undefined) ? props.game.map.nodes[props.nodeSelectedID] : undefined;
 
     return (
         <div className="game">
@@ -142,6 +144,21 @@ const Game: React.FC<GameProps> = props => {
                     onMouseLeaveNode = {props.onMouseLeaveNode}
                 />
                 {armies}
+                {
+                    (nodeSelected !== undefined)
+                    ? <SelectedCircle
+                        node = {nodeSelected}
+                    />
+                    : null
+                }
+                {
+                    (nodeSelected !== undefined && nodeSelected.assign !== undefined)
+                    ? <SelectedCircle
+                        node = {nodeSelected.assign}
+                        color = "#eeee00"
+                    />
+                    : null
+                }
             </svg>
         </div>
     );

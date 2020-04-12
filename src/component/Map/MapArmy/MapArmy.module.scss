@@ -1,9 +1,5 @@
 @use 'src/style/base';
 
-.mapArmyCircle {
-    transition: all 0.5s linear;
-}
-
 .mapArmyText {
     @include base.unselectable();
 
@@ -15,9 +11,7 @@
     font-size: 0.105em;
 
     paint-order: stroke;
-    stroke-width: 0.25;
+    stroke-width: 0.375;
     stroke-linecap: round;
     stroke-linejoin: round;
-
-    transition: all 0.5s linear;
 }

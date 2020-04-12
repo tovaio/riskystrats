@@ -1,5 +1,5 @@
 import React from 'react';
-import { nodeColors, nodeRadius, edgeWidth } from 'style/Constants';
+import { nodeColors, nodeRadius } from 'style/Constants';
 
 import { MapNodeData } from './MapNodeData';
 
@@ -40,7 +40,6 @@ const MapNode: React.FC<MapNodeProps> = (props) => {
     const selectable = props.team !== Team.Neutral && ((props.nodeSelected !== undefined && visible) || props.node.team === props.team);
     const selected = props.node === props.nodeSelected;
     const hovered = props.node === props.nodeHovered;
-    const assigned = props.nodeSelected !== undefined && props.nodeSelected.assign === props.node; 
 
     // Colors
     const primaryColor = visible ? nodeColors[props.node.team] : nodeColors[Team.Neutral];
@@ -94,26 +93,6 @@ const MapNode: React.FC<MapNodeProps> = (props) => {
             >
                 {(visible) ? props.node.troops : null}
             </text>
-            {
-                assigned ? (
-                    <circle
-                        className = 'select'
-                        cx = {props.node.x}
-                        cy = {props.node.y}
-                        r = {nodeRadius * 1.5}
-
-                        style = {{
-                            // Stroke
-                            stroke: '#eeee00',
-                            strokeWidth: edgeWidth,
-                            strokeDasharray: '1 1 1 1 1 1 1 1',
-
-                            // No fill
-                            fillOpacity: 0
-                        }}
-                    />
-                ) : null
-            }
         </g>
     );
 }
