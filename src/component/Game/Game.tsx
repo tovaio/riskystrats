@@ -148,6 +148,7 @@ const Game: React.FC<GameProps> = props => {
                     (nodeSelected !== undefined)
                     ? <SelectedCircle
                         node = {nodeSelected}
+                        key = {nodeSelected.id}
                     />
                     : null
                 }
@@ -156,6 +157,7 @@ const Game: React.FC<GameProps> = props => {
                     ? <SelectedCircle
                         node = {nodeSelected.assign}
                         color = "#eeee00"
+                        key = {nodeSelected.assign.id}
                     />
                     : null
                 }

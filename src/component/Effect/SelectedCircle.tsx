@@ -17,36 +17,52 @@ const SelectedCircle: React.FC<SelectedCircleProps> = props => {
 
     useEffect(
         () => {
-            const tl = gsap.timeline({repeat: -1});
-            const rotationTime = 10;
-            const pulsesPerRotation = 8;
+            const className = `.selected-node-${props.node.id}`;
 
-            for (let i = 0; i < pulsesPerRotation; i++) {
-                tl.to(`.selected-node-${props.node.id}`, rotationTime / 2 / pulsesPerRotation, {
-                    scale: maxScale,
-                    opacity: 1,
-                    ease: 'power1.inOut'
-                }, ">");
-                tl.to(`.selected-node-${props.node.id}`, rotationTime / 2 / pulsesPerRotation, {
-                    scale: 1,
-                    opacity: 1,
-                    ease: 'power1.inOut'
-                }, ">");
-            }
+            let tl: gsap.core.Timeline | undefined = undefined;
 
-            tl.fromTo(`.selected-node-${props.node.id}`, rotationTime, {
-                rotate: '0deg',
-                ease: 'none'
+            const t = gsap.fromTo(className, 0.15, {
+                transformOrigin: 'center center',
+                opacity: 0,
+                scale: 0.5
             }, {
-                rotate: '360deg',
-                ease: 'none'
-            }, 0);
+                transformOrigin: 'center center',
+                opacity: 1,
+                scale: 1,
+                ease: 'power1.out',
+                onComplete: () => {
+                    tl = gsap.timeline({repeat: -1});
+                    const rotationTime = 10;
+                    const pulsesPerRotation = 8;
+
+                    for (let i = 0; i < pulsesPerRotation; i++) {
+                        tl.to(className, rotationTime / 2 / pulsesPerRotation, {
+                            scale: maxScale,
+                            ease: 'power1.inOut'
+                        }, ">");
+                        tl.to(className, rotationTime / 2 / pulsesPerRotation, {
+                            scale: 1,
+                            ease: 'power1.inOut'
+                        }, ">");
+                    }
+
+                    tl.fromTo(className, rotationTime, {
+                        rotate: '0deg',
+                        ease: 'none'
+                    }, {
+                        rotate: '360deg',
+                        ease: 'none'
+                    }, 0);
+                }
+            });
 
             return () => {
-                tl.kill();
+                if (tl !== undefined)
+                    tl.kill();
+                t.kill();
             };
         },
-        []
+        [props.node.id]
     );
 
     return (
@@ -58,7 +74,6 @@ const SelectedCircle: React.FC<SelectedCircleProps> = props => {
             r = {nodeRadius * radiusFactor}
 
             strokeDasharray = {nodeRadius * radiusFactor * Math.PI / 10}
-            pointerEvents = 'visiblePainted'
 
             style = {props.color !== undefined ? {stroke: props.color} : {}}
         />

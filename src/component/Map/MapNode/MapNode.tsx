@@ -1,11 +1,12 @@
 import React from 'react';
-import { nodeColors, nodeRadius } from 'style/Constants';
+import { nodeColors } from 'style/Constants';
 
-import { MapNodeData } from './MapNodeData';
+import { MapNodeData, NodeType } from './MapNodeData';
+import MapNodeShape from './MapNodeShape';
 
 import { Team } from 'component/Player/PlayerData';
 
-import styles from './MapNode.module.scss';
+import style from './MapNode.module.scss';
 
 // Determines if a node is visible to a certain player.
 const isVisible = (node: MapNodeData, team: Team): boolean => {
@@ -38,13 +39,12 @@ const MapNode: React.FC<MapNodeProps> = (props) => {
     // Helper booleans
     const visible = props.team === Team.Neutral || isVisible(props.node, props.team);
     const selectable = props.team !== Team.Neutral && ((props.nodeSelected !== undefined && visible) || props.node.team === props.team);
-    const selected = props.node === props.nodeSelected;
     const hovered = props.node === props.nodeHovered;
 
     // Colors
     const primaryColor = visible ? nodeColors[props.node.team] : nodeColors[Team.Neutral];
     const secondaryColor = visible ? '#eeeeee' : nodeColors[Team.Neutral];
-    const invertColors = (selectable && hovered) || selected;
+    const invertColors = (selectable && hovered);
 
     // Border
     //const borderRadius = (visible && (props.node.type === NodeType.Artillery || props.node.type === NodeType.Fort)) ? 5 : 50;
@@ -61,22 +61,16 @@ const MapNode: React.FC<MapNodeProps> = (props) => {
             onMouseEnter = {() => {if (props.onMouseEnterNode !== undefined) props.onMouseEnterNode(props.node);}}
             onMouseLeave = {() => {if (props.onMouseLeaveNode !== undefined) props.onMouseLeaveNode(props.node);}}
         >
-            <circle
-                className = {styles.mapNodeCircle}
-
-                // Position
-                cx = {props.node.x}
-                cy = {props.node.y}
-                r = {nodeRadius}
-
-                // Colors
-                style = {{
+            {
+                MapNodeShape[visible ? props.node.type : NodeType.Normal]({
+                    cx: props.node.x,
+                    cy: props.node.y,
                     fill: invertColors ? secondaryColor : primaryColor,
                     stroke: invertColors ? primaryColor : secondaryColor
-                }}
-            />
+                })
+            }
             <text
-                className = {styles.mapNodeText}
+                className = {style.mapNodeText}
 
                 // Text position
                 dominantBaseline = 'middle'

@@ -5,7 +5,8 @@
     stroke-width: base.$edge-width * 2 / 3;
 
     fill: none;
-
     scale: 0.5;
     opacity: 0;
+
+    transition: stroke 0.15s;
 }
